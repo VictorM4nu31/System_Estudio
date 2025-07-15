@@ -90,4 +90,25 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/moderation', [ModerationController::class, 'manage'])->middleware('permission:admin.moderation.manage');
 });
 
+Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->group(function () {
+    // Gremios
+    Route::apiResource('guilds', \App\Http\Controllers\Teacher\GuildController::class);
+    // Misiones
+    Route::apiResource('missions', \App\Http\Controllers\Teacher\MissionController::class);
+    // Tareas
+    Route::apiResource('tasks', \App\Http\Controllers\Teacher\TaskController::class);
+    // Tiendas
+    Route::apiResource('shops', \App\Http\Controllers\Teacher\ShopController::class);
+    // Recompensas
+    Route::apiResource('rewards', \App\Http\Controllers\Teacher\RewardController::class);
+    // Anuncios
+    Route::apiResource('announcements', \App\Http\Controllers\Teacher\AnnouncementController::class);
+    // Mensajes
+    Route::apiResource('messages', \App\Http\Controllers\Teacher\MessageController::class);
+    // Eventos de gremio
+    Route::apiResource('events', \App\Http\Controllers\Teacher\EventController::class);
+    // Equipos
+    Route::apiResource('teams', \App\Http\Controllers\Teacher\TeamController::class);
+});
+
 require __DIR__.'/auth.php';
