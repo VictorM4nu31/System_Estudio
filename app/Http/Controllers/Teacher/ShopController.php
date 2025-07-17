@@ -9,7 +9,9 @@ use App\Models\Teacher\Shop;
 class ShopController extends Controller
 {
     public function index() {
-        return response()->json(Shop::all());
+        $shops = Shop::all();
+        // Vista: teacher/shops/index (listado de tiendas)
+        return view('teacher.shops.index', compact('shops'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class ShopController extends Controller
             'description' => 'nullable|string',
         ]);
         $shop = Shop::create($validated);
-        return response()->json(['message' => 'Tienda creada', 'shop' => $shop]);
+        // Vista: teacher/shops/show (detalle de tienda creada)
+        return view('teacher.shops.show', compact('shop'));
     }
     public function show($id) {
-        return response()->json(Shop::findOrFail($id));
+        $shop = Shop::findOrFail($id);
+        // Vista: teacher/shops/show (detalle de tienda)
+        return view('teacher.shops.show', compact('shop'));
     }
     public function update(Request $request, $id) {
         $shop = Shop::findOrFail($id);
@@ -31,11 +36,14 @@ class ShopController extends Controller
             'description' => 'nullable|string',
         ]);
         $shop->update($validated);
-        return response()->json(['message' => 'Tienda actualizada', 'shop' => $shop]);
+        // Vista: teacher/shops/show (detalle de tienda actualizada)
+        return view('teacher.shops.show', compact('shop'));
     }
     public function destroy($id) {
         $shop = Shop::findOrFail($id);
         $shop->delete();
-        return response()->json(['message' => 'Tienda eliminada']);
+        // Vista: teacher/shops/index (listado tras eliminar)
+        $shops = Shop::all();
+        return view('teacher.shops.index', compact('shops'));
     }
 }

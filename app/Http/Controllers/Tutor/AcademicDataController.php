@@ -9,7 +9,9 @@ use App\Models\Tutor\AcademicData;
 class AcademicDataController extends Controller
 {
     public function index() {
-        return response()->json(AcademicData::all());
+        $academicData = AcademicData::all();
+        // Vista: tutor/academic_data/index (listado de datos académicos)
+        return view('tutor.academic_data.index', compact('academicData'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class AcademicDataController extends Controller
             'grade' => 'required|string',
         ]);
         $data = AcademicData::create($validated);
-        return response()->json(['message' => 'Datos académicos guardados', 'academic_data' => $data]);
+        // Vista: tutor/academic_data/show (detalle de datos académicos guardados)
+        return view('tutor.academic_data.show', compact('data'));
     }
     public function show($id) {
-        return response()->json(AcademicData::findOrFail($id));
+        $data = AcademicData::findOrFail($id);
+        // Vista: tutor/academic_data/show (detalle de datos académicos)
+        return view('tutor.academic_data.show', compact('data'));
     }
     public function update(Request $request, $id) {
         $data = AcademicData::findOrFail($id);
@@ -33,11 +38,14 @@ class AcademicDataController extends Controller
             'grade' => 'sometimes|required|string',
         ]);
         $data->update($validated);
-        return response()->json(['message' => 'Datos académicos actualizados', 'academic_data' => $data]);
+        // Vista: tutor/academic_data/show (detalle de datos académicos actualizados)
+        return view('tutor.academic_data.show', compact('data'));
     }
     public function destroy($id) {
         $data = AcademicData::findOrFail($id);
         $data->delete();
-        return response()->json(['message' => 'Datos académicos eliminados']);
+        // Vista: tutor/academic_data/index (listado tras eliminar)
+        $academicData = AcademicData::all();
+        return view('tutor.academic_data.index', compact('academicData'));
     }
 }

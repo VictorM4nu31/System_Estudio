@@ -9,7 +9,9 @@ use App\Models\Teacher\Task;
 class TaskController extends Controller
 {
     public function index() {
-        return response()->json(Task::all());
+        $tasks = Task::all();
+        // Vista: teacher/tasks/index (listado de tareas)
+        return view('teacher.tasks.index', compact('tasks'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class TaskController extends Controller
             'due_date' => 'nullable|date',
         ]);
         $task = Task::create($validated);
-        return response()->json(['message' => 'Tarea creada', 'task' => $task]);
+        // Vista: teacher/tasks/show (detalle de tarea creada)
+        return view('teacher.tasks.show', compact('task'));
     }
     public function show($id) {
-        return response()->json(Task::findOrFail($id));
+        $task = Task::findOrFail($id);
+        // Vista: teacher/tasks/show (detalle de tarea)
+        return view('teacher.tasks.show', compact('task'));
     }
     public function update(Request $request, $id) {
         $task = Task::findOrFail($id);
@@ -33,11 +38,14 @@ class TaskController extends Controller
             'due_date' => 'nullable|date',
         ]);
         $task->update($validated);
-        return response()->json(['message' => 'Tarea actualizada', 'task' => $task]);
+        // Vista: teacher/tasks/show (detalle de tarea actualizada)
+        return view('teacher.tasks.show', compact('task'));
     }
     public function destroy($id) {
         $task = Task::findOrFail($id);
         $task->delete();
-        return response()->json(['message' => 'Tarea eliminada']);
+        // Vista: teacher/tasks/index (listado tras eliminar)
+        $tasks = Task::all();
+        return view('teacher.tasks.index', compact('tasks'));
     }
 }

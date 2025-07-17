@@ -15,11 +15,13 @@ class EventController extends Controller
             'description' => 'nullable|string',
         ]);
         $event = Event::create($validated);
-        return response()->json(['message' => 'Evento creado', 'event' => $event]);
+        // Vista: admin/events/show (detalle de evento creado)
+        return view('admin.events.show', compact('event'));
     }
     public function manage() {
         $events = Event::all();
-        return response()->json(['events' => $events]);
+        // Vista: admin/events/index (listado de eventos)
+        return view('admin.events.index', compact('events'));
     }
     public function update(Request $request, $id) {
         $event = Event::findOrFail($id);
@@ -29,11 +31,14 @@ class EventController extends Controller
             'description' => 'nullable|string',
         ]);
         $event->update($validated);
-        return response()->json(['message' => 'Evento actualizado', 'event' => $event]);
+        // Vista: admin/events/show (detalle de evento actualizado)
+        return view('admin.events.show', compact('event'));
     }
     public function destroy($id) {
         $event = Event::findOrFail($id);
         $event->delete();
-        return response()->json(['message' => 'Evento eliminado']);
+        // Vista: admin/events/index (listado tras eliminar)
+        $events = Event::all();
+        return view('admin.events.index', compact('events'));
     }
 }

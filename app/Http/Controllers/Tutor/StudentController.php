@@ -9,7 +9,9 @@ use App\Models\Tutor\Student;
 class StudentController extends Controller
 {
     public function index() {
-        return response()->json(Student::all());
+        $students = Student::all();
+        // Vista: tutor/students/index (listado de hijos/estudiantes)
+        return view('tutor.students.index', compact('students'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class StudentController extends Controller
             'relationship' => 'nullable|string',
         ]);
         $student = Student::create($validated);
-        return response()->json(['message' => 'Hijo registrado', 'student' => $student]);
+        // Vista: tutor/students/show (detalle de hijo registrado)
+        return view('tutor.students.show', compact('student'));
     }
     public function show($id) {
-        return response()->json(Student::findOrFail($id));
+        $student = Student::findOrFail($id);
+        // Vista: tutor/students/show (detalle de hijo)
+        return view('tutor.students.show', compact('student'));
     }
     public function update(Request $request, $id) {
         $student = Student::findOrFail($id);
@@ -32,11 +37,14 @@ class StudentController extends Controller
             'relationship' => 'nullable|string',
         ]);
         $student->update($validated);
-        return response()->json(['message' => 'Hijo actualizado', 'student' => $student]);
+        // Vista: tutor/students/show (detalle de hijo actualizado)
+        return view('tutor.students.show', compact('student'));
     }
     public function destroy($id) {
         $student = Student::findOrFail($id);
         $student->delete();
-        return response()->json(['message' => 'Hijo eliminado']);
+        // Vista: tutor/students/index (listado tras eliminar)
+        $students = Student::all();
+        return view('tutor.students.index', compact('students'));
     }
 }

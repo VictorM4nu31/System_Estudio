@@ -9,7 +9,9 @@ use App\Models\Student\Badge;
 class BadgeController extends Controller
 {
     public function index() {
-        return response()->json(Badge::all());
+        $badges = Badge::all();
+        // Vista: student/badges/index (listado de insignias)
+        return view('student.badges.index', compact('badges'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class BadgeController extends Controller
             'unlocked' => 'required|boolean',
         ]);
         $badge = Badge::create($validated);
-        return response()->json(['message' => 'Insignia creada', 'badge' => $badge]);
+        // Vista: student/badges/show (detalle de insignia creada)
+        return view('student.badges.show', compact('badge'));
     }
     public function show($id) {
-        return response()->json(Badge::findOrFail($id));
+        $badge = Badge::findOrFail($id);
+        // Vista: student/badges/show (detalle de insignia)
+        return view('student.badges.show', compact('badge'));
     }
     public function update(Request $request, $id) {
         $badge = Badge::findOrFail($id);
@@ -32,11 +37,14 @@ class BadgeController extends Controller
             'unlocked' => 'sometimes|required|boolean',
         ]);
         $badge->update($validated);
-        return response()->json(['message' => 'Insignia actualizada', 'badge' => $badge]);
+        // Vista: student/badges/show (detalle de insignia actualizada)
+        return view('student.badges.show', compact('badge'));
     }
     public function destroy($id) {
         $badge = Badge::findOrFail($id);
         $badge->delete();
-        return response()->json(['message' => 'Insignia eliminada']);
+        // Vista: student/badges/index (listado tras eliminar)
+        $badges = Badge::all();
+        return view('student.badges.index', compact('badges'));
     }
 }

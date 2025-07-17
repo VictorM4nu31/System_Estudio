@@ -8,11 +8,12 @@ use Illuminate\Http\Request;
 class SettingsController extends Controller
 {
     public function manage() {
+        // Vista: admin/settings (gestión general de configuración)
         $settings = config('app');
-        return response()->json(['settings' => $settings]);
+        return view('admin.settings', compact('settings'));
     }
     public function advanced(Request $request) {
-        // Mock: solo retorna un mensaje, aquí podrías guardar en base de datos o archivo
-        return response()->json(['message' => 'Configuración avanzada actualizada']);
+        // Vista: admin/settings/advanced (configuración avanzada)
+        return view('admin.settings.advanced');
     }
 }

@@ -9,7 +9,9 @@ use App\Models\Student\Inventory;
 class InventoryController extends Controller
 {
     public function index() {
-        return response()->json(Inventory::all());
+        $inventories = Inventory::all();
+        // Vista: student/inventory/index (listado de inventario)
+        return view('student.inventory.index', compact('inventories'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -18,10 +20,13 @@ class InventoryController extends Controller
             'quantity' => 'required|integer',
         ]);
         $inventory = Inventory::create($validated);
-        return response()->json(['message' => 'Item agregado al inventario', 'inventory' => $inventory]);
+        // Vista: student/inventory/show (detalle de item agregado)
+        return view('student.inventory.show', compact('inventory'));
     }
     public function show($id) {
-        return response()->json(Inventory::findOrFail($id));
+        $inventory = Inventory::findOrFail($id);
+        // Vista: student/inventory/show (detalle de item)
+        return view('student.inventory.show', compact('inventory'));
     }
     public function update(Request $request, $id) {
         $inventory = Inventory::findOrFail($id);
@@ -30,11 +35,14 @@ class InventoryController extends Controller
             'quantity' => 'sometimes|required|integer',
         ]);
         $inventory->update($validated);
-        return response()->json(['message' => 'Inventario actualizado', 'inventory' => $inventory]);
+        // Vista: student/inventory/show (detalle de item actualizado)
+        return view('student.inventory.show', compact('inventory'));
     }
     public function destroy($id) {
         $inventory = Inventory::findOrFail($id);
         $inventory->delete();
-        return response()->json(['message' => 'Item eliminado del inventario']);
+        // Vista: student/inventory/index (listado tras eliminar)
+        $inventories = Inventory::all();
+        return view('student.inventory.index', compact('inventories'));
     }
 }

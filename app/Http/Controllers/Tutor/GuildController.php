@@ -9,7 +9,9 @@ use App\Models\Tutor\Guild;
 class GuildController extends Controller
 {
     public function index() {
-        return response()->json(Guild::all());
+        $guilds = Guild::all();
+        // Vista: tutor/guilds/index (listado de gremios)
+        return view('tutor.guilds.index', compact('guilds'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class GuildController extends Controller
             'description' => 'nullable|string',
         ]);
         $guild = Guild::create($validated);
-        return response()->json(['message' => 'Gremio creado', 'guild' => $guild]);
+        // Vista: tutor/guilds/show (detalle de gremio creado)
+        return view('tutor.guilds.show', compact('guild'));
     }
     public function show($id) {
-        return response()->json(Guild::findOrFail($id));
+        $guild = Guild::findOrFail($id);
+        // Vista: tutor/guilds/show (detalle de gremio)
+        return view('tutor.guilds.show', compact('guild'));
     }
     public function update(Request $request, $id) {
         $guild = Guild::findOrFail($id);
@@ -33,11 +38,14 @@ class GuildController extends Controller
             'description' => 'nullable|string',
         ]);
         $guild->update($validated);
-        return response()->json(['message' => 'Gremio actualizado', 'guild' => $guild]);
+        // Vista: tutor/guilds/show (detalle de gremio actualizado)
+        return view('tutor.guilds.show', compact('guild'));
     }
     public function destroy($id) {
         $guild = Guild::findOrFail($id);
         $guild->delete();
-        return response()->json(['message' => 'Gremio eliminado']);
+        // Vista: tutor/guilds/index (listado tras eliminar)
+        $guilds = Guild::all();
+        return view('tutor.guilds.index', compact('guilds'));
     }
 }

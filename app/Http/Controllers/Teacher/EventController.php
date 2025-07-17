@@ -9,7 +9,9 @@ use App\Models\Teacher\Event;
 class EventController extends Controller
 {
     public function index() {
-        return response()->json(Event::all());
+        $events = Event::all();
+        // Vista: teacher/events/index (listado de eventos)
+        return view('teacher.events.index', compact('events'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class EventController extends Controller
             'description' => 'nullable|string',
         ]);
         $event = Event::create($validated);
-        return response()->json(['message' => 'Evento creado', 'event' => $event]);
+        // Vista: teacher/events/show (detalle de evento creado)
+        return view('teacher.events.show', compact('event'));
     }
     public function show($id) {
-        return response()->json(Event::findOrFail($id));
+        $event = Event::findOrFail($id);
+        // Vista: teacher/events/show (detalle de evento)
+        return view('teacher.events.show', compact('event'));
     }
     public function update(Request $request, $id) {
         $event = Event::findOrFail($id);
@@ -33,11 +38,14 @@ class EventController extends Controller
             'description' => 'nullable|string',
         ]);
         $event->update($validated);
-        return response()->json(['message' => 'Evento actualizado', 'event' => $event]);
+        // Vista: teacher/events/show (detalle de evento actualizado)
+        return view('teacher.events.show', compact('event'));
     }
     public function destroy($id) {
         $event = Event::findOrFail($id);
         $event->delete();
-        return response()->json(['message' => 'Evento eliminado']);
+        // Vista: teacher/events/index (listado tras eliminar)
+        $events = Event::all();
+        return view('teacher.events.index', compact('events'));
     }
 }

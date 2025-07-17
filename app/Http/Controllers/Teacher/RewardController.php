@@ -9,7 +9,9 @@ use App\Models\Teacher\Reward;
 class RewardController extends Controller
 {
     public function index() {
-        return response()->json(Reward::all());
+        $rewards = Reward::all();
+        // Vista: teacher/rewards/index (listado de recompensas)
+        return view('teacher.rewards.index', compact('rewards'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -21,10 +23,13 @@ class RewardController extends Controller
             'cost' => 'required|integer',
         ]);
         $reward = Reward::create($validated);
-        return response()->json(['message' => 'Recompensa creada', 'reward' => $reward]);
+        // Vista: teacher/rewards/show (detalle de recompensa creada)
+        return view('teacher.rewards.show', compact('reward'));
     }
     public function show($id) {
-        return response()->json(Reward::findOrFail($id));
+        $reward = Reward::findOrFail($id);
+        // Vista: teacher/rewards/show (detalle de recompensa)
+        return view('teacher.rewards.show', compact('reward'));
     }
     public function update(Request $request, $id) {
         $reward = Reward::findOrFail($id);
@@ -34,11 +39,14 @@ class RewardController extends Controller
             'cost' => 'sometimes|required|integer',
         ]);
         $reward->update($validated);
-        return response()->json(['message' => 'Recompensa actualizada', 'reward' => $reward]);
+        // Vista: teacher/rewards/show (detalle de recompensa actualizada)
+        return view('teacher.rewards.show', compact('reward'));
     }
     public function destroy($id) {
         $reward = Reward::findOrFail($id);
         $reward->delete();
-        return response()->json(['message' => 'Recompensa eliminada']);
+        // Vista: teacher/rewards/index (listado tras eliminar)
+        $rewards = Reward::all();
+        return view('teacher.rewards.index', compact('rewards'));
     }
 }

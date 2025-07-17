@@ -9,7 +9,9 @@ use App\Models\Tutor\Statistic;
 class StatisticController extends Controller
 {
     public function index() {
-        return response()->json(Statistic::all());
+        $statistics = Statistic::all();
+        // Vista: tutor/statistics/index (listado de estadísticas)
+        return view('tutor.statistics.index', compact('statistics'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -18,10 +20,13 @@ class StatisticController extends Controller
             'data' => 'nullable|json',
         ]);
         $statistic = Statistic::create($validated);
-        return response()->json(['message' => 'Estadística creada', 'statistic' => $statistic]);
+        // Vista: tutor/statistics/show (detalle de estadística creada)
+        return view('tutor.statistics.show', compact('statistic'));
     }
     public function show($id) {
-        return response()->json(Statistic::findOrFail($id));
+        $statistic = Statistic::findOrFail($id);
+        // Vista: tutor/statistics/show (detalle de estadística)
+        return view('tutor.statistics.show', compact('statistic'));
     }
     public function update(Request $request, $id) {
         $statistic = Statistic::findOrFail($id);
@@ -29,11 +34,14 @@ class StatisticController extends Controller
             'data' => 'nullable|json',
         ]);
         $statistic->update($validated);
-        return response()->json(['message' => 'Estadística actualizada', 'statistic' => $statistic]);
+        // Vista: tutor/statistics/show (detalle de estadística actualizada)
+        return view('tutor.statistics.show', compact('statistic'));
     }
     public function destroy($id) {
         $statistic = Statistic::findOrFail($id);
         $statistic->delete();
-        return response()->json(['message' => 'Estadística eliminada']);
+        // Vista: tutor/statistics/index (listado tras eliminar)
+        $statistics = Statistic::all();
+        return view('tutor.statistics.index', compact('statistics'));
     }
 }

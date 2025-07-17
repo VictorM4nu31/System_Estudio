@@ -9,7 +9,9 @@ use App\Models\Student\Mission;
 class MissionController extends Controller
 {
     public function index() {
-        return response()->json(Mission::all());
+        $missions = Mission::all();
+        // Vista: student/missions/index (listado de misiones)
+        return view('student.missions.index', compact('missions'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -21,10 +23,13 @@ class MissionController extends Controller
             'due_date' => 'nullable|date',
         ]);
         $mission = Mission::create($validated);
-        return response()->json(['message' => 'Misión creada', 'mission' => $mission]);
+        // Vista: student/missions/show (detalle de misión creada)
+        return view('student.missions.show', compact('mission'));
     }
     public function show($id) {
-        return response()->json(Mission::findOrFail($id));
+        $mission = Mission::findOrFail($id);
+        // Vista: student/missions/show (detalle de misión)
+        return view('student.missions.show', compact('mission'));
     }
     public function update(Request $request, $id) {
         $mission = Mission::findOrFail($id);
@@ -35,11 +40,14 @@ class MissionController extends Controller
             'due_date' => 'nullable|date',
         ]);
         $mission->update($validated);
-        return response()->json(['message' => 'Misión actualizada', 'mission' => $mission]);
+        // Vista: student/missions/show (detalle de misión actualizada)
+        return view('student.missions.show', compact('mission'));
     }
     public function destroy($id) {
         $mission = Mission::findOrFail($id);
         $mission->delete();
-        return response()->json(['message' => 'Misión eliminada']);
+        // Vista: student/missions/index (listado tras eliminar)
+        $missions = Mission::all();
+        return view('student.missions.index', compact('missions'));
     }
 }

@@ -9,7 +9,9 @@ use App\Models\Tutor\Contact;
 class ContactController extends Controller
 {
     public function index() {
-        return response()->json(Contact::all());
+        $contacts = Contact::all();
+        // Vista: tutor/contact/index (listado de mensajes de contacto)
+        return view('tutor.contact.index', compact('contacts'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class ContactController extends Controller
             'sent_at' => 'nullable|date',
         ]);
         $contact = Contact::create($validated);
-        return response()->json(['message' => 'Mensaje enviado al docente', 'contact' => $contact]);
+        // Vista: tutor/contact/show (detalle de mensaje enviado)
+        return view('tutor.contact.show', compact('contact'));
     }
     public function show($id) {
-        return response()->json(Contact::findOrFail($id));
+        $contact = Contact::findOrFail($id);
+        // Vista: tutor/contact/show (detalle de mensaje)
+        return view('tutor.contact.show', compact('contact'));
     }
     public function update(Request $request, $id) {
         $contact = Contact::findOrFail($id);
@@ -32,11 +37,14 @@ class ContactController extends Controller
             'sent_at' => 'nullable|date',
         ]);
         $contact->update($validated);
-        return response()->json(['message' => 'Mensaje actualizado', 'contact' => $contact]);
+        // Vista: tutor/contact/show (detalle de mensaje actualizado)
+        return view('tutor.contact.show', compact('contact'));
     }
     public function destroy($id) {
         $contact = Contact::findOrFail($id);
         $contact->delete();
-        return response()->json(['message' => 'Mensaje eliminado']);
+        // Vista: tutor/contact/index (listado tras eliminar)
+        $contacts = Contact::all();
+        return view('tutor.contact.index', compact('contacts'));
     }
 }

@@ -9,7 +9,9 @@ use App\Models\Teacher\Announcement;
 class AnnouncementController extends Controller
 {
     public function index() {
-        return response()->json(Announcement::all());
+        $announcements = Announcement::all();
+        // Vista: teacher/announcements/index (listado de anuncios)
+        return view('teacher.announcements.index', compact('announcements'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class AnnouncementController extends Controller
             'teacher_id' => 'required|integer',
         ]);
         $announcement = Announcement::create($validated);
-        return response()->json(['message' => 'Anuncio creado', 'announcement' => $announcement]);
+        // Vista: teacher/announcements/show (detalle de anuncio creado)
+        return view('teacher.announcements.show', compact('announcement'));
     }
     public function show($id) {
-        return response()->json(Announcement::findOrFail($id));
+        $announcement = Announcement::findOrFail($id);
+        // Vista: teacher/announcements/show (detalle de anuncio)
+        return view('teacher.announcements.show', compact('announcement'));
     }
     public function update(Request $request, $id) {
         $announcement = Announcement::findOrFail($id);
@@ -31,11 +36,14 @@ class AnnouncementController extends Controller
             'content' => 'sometimes|required|string',
         ]);
         $announcement->update($validated);
-        return response()->json(['message' => 'Anuncio actualizado', 'announcement' => $announcement]);
+        // Vista: teacher/announcements/show (detalle de anuncio actualizado)
+        return view('teacher.announcements.show', compact('announcement'));
     }
     public function destroy($id) {
         $announcement = Announcement::findOrFail($id);
         $announcement->delete();
-        return response()->json(['message' => 'Anuncio eliminado']);
+        // Vista: teacher/announcements/index (listado tras eliminar)
+        $announcements = Announcement::all();
+        return view('teacher.announcements.index', compact('announcements'));
     }
 }

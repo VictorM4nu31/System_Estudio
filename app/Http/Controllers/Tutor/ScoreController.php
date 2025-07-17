@@ -9,7 +9,9 @@ use App\Models\Tutor\Score;
 class ScoreController extends Controller
 {
     public function index() {
-        return response()->json(Score::all());
+        $scores = Score::all();
+        // Vista: tutor/scores/index (listado de puntajes)
+        return view('tutor.scores.index', compact('scores'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class ScoreController extends Controller
             'grades' => 'nullable|json',
         ]);
         $score = Score::create($validated);
-        return response()->json(['message' => 'Puntaje creado', 'score' => $score]);
+        // Vista: tutor/scores/show (detalle de puntaje creado)
+        return view('tutor.scores.show', compact('score'));
     }
     public function show($id) {
-        return response()->json(Score::findOrFail($id));
+        $score = Score::findOrFail($id);
+        // Vista: tutor/scores/show (detalle de puntaje)
+        return view('tutor.scores.show', compact('score'));
     }
     public function update(Request $request, $id) {
         $score = Score::findOrFail($id);
@@ -33,11 +38,14 @@ class ScoreController extends Controller
             'grades' => 'nullable|json',
         ]);
         $score->update($validated);
-        return response()->json(['message' => 'Puntaje actualizado', 'score' => $score]);
+        // Vista: tutor/scores/show (detalle de puntaje actualizado)
+        return view('tutor.scores.show', compact('score'));
     }
     public function destroy($id) {
         $score = Score::findOrFail($id);
         $score->delete();
-        return response()->json(['message' => 'Puntaje eliminado']);
+        // Vista: tutor/scores/index (listado tras eliminar)
+        $scores = Score::all();
+        return view('tutor.scores.index', compact('scores'));
     }
 }

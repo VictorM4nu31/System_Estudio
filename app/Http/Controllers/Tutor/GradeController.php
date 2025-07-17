@@ -9,7 +9,9 @@ use App\Models\Tutor\Grade;
 class GradeController extends Controller
 {
     public function index() {
-        return response()->json(Grade::all());
+        $grades = Grade::all();
+        // Vista: tutor/grades/index (listado de calificaciones)
+        return view('tutor.grades.index', compact('grades'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class GradeController extends Controller
             'grade' => 'required|string',
         ]);
         $grade = Grade::create($validated);
-        return response()->json(['message' => 'Calificación creada', 'grade' => $grade]);
+        // Vista: tutor/grades/show (detalle de calificación creada)
+        return view('tutor.grades.show', compact('grade'));
     }
     public function show($id) {
-        return response()->json(Grade::findOrFail($id));
+        $grade = Grade::findOrFail($id);
+        // Vista: tutor/grades/show (detalle de calificación)
+        return view('tutor.grades.show', compact('grade'));
     }
     public function update(Request $request, $id) {
         $grade = Grade::findOrFail($id);
@@ -31,11 +36,14 @@ class GradeController extends Controller
             'grade' => 'sometimes|required|string',
         ]);
         $grade->update($validated);
-        return response()->json(['message' => 'Calificación actualizada', 'grade' => $grade]);
+        // Vista: tutor/grades/show (detalle de calificación actualizada)
+        return view('tutor.grades.show', compact('grade'));
     }
     public function destroy($id) {
         $grade = Grade::findOrFail($id);
         $grade->delete();
-        return response()->json(['message' => 'Calificación eliminada']);
+        // Vista: tutor/grades/index (listado tras eliminar)
+        $grades = Grade::all();
+        return view('tutor.grades.index', compact('grades'));
     }
 }

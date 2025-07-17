@@ -7,12 +7,18 @@ use App\Http\Controllers\Controller;
 class ReportController extends Controller
 {
     public function all() {
-        return response()->json(['reports' => ['Reporte 1', 'Reporte 2']]);
+        // Vista: admin/reports/index (listado de reportes)
+        $reports = ['Reporte 1', 'Reporte 2'];
+        return view('admin.reports.index', compact('reports'));
     }
     public function analytics() {
-        return response()->json(['analytics' => ['Usuarios activos' => 10, 'Misiones completadas' => 50]]);
+        // Vista: admin/reports/analytics (analíticas globales)
+        $analytics = ['Usuarios activos' => 10, 'Misiones completadas' => 50];
+        return view('admin.reports.analytics', compact('analytics'));
     }
     public function logs() {
-        return response()->json(['logs' => ['Log 1', 'Log 2']]);
+        // Vista: admin/reports/logs (historial de acciones)
+        $logs = ['Log 1', 'Log 2'];
+        return view('admin.reports.logs', compact('logs'));
     }
 }

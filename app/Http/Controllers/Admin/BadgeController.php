@@ -14,11 +14,13 @@ class BadgeController extends Controller
             'description' => 'nullable|string',
         ]);
         $badge = Badge::create($validated);
-        return response()->json(['message' => 'Insignia global creada', 'badge' => $badge]);
+        // Vista: admin/badges/show (detalle de insignia creada)
+        return view('admin.badges.show', compact('badge'));
     }
     public function index() {
         $badges = Badge::all();
-        return response()->json(['badges' => $badges]);
+        // Vista: admin/badges/index (listado de insignias)
+        return view('admin.badges.index', compact('badges'));
     }
     public function update(Request $request, $id) {
         $badge = Badge::findOrFail($id);
@@ -27,11 +29,14 @@ class BadgeController extends Controller
             'description' => 'nullable|string',
         ]);
         $badge->update($validated);
-        return response()->json(['message' => 'Insignia actualizada', 'badge' => $badge]);
+        // Vista: admin/badges/show (detalle de insignia actualizada)
+        return view('admin.badges.show', compact('badge'));
     }
     public function destroy($id) {
         $badge = Badge::findOrFail($id);
         $badge->delete();
-        return response()->json(['message' => 'Insignia eliminada']);
+        // Vista: admin/badges/index (listado tras eliminar)
+        $badges = Badge::all();
+        return view('admin.badges.index', compact('badges'));
     }
 }

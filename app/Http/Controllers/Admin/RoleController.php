@@ -16,14 +16,19 @@ class RoleController extends Controller
         ]);
         $user = User::findOrFail($validated['user_id']);
         $user->syncRoles([$validated['role']]);
-        return response()->json(['message' => 'Rol asignado', 'user' => $user]);
+        // Vista: admin/roles/assign (resultado de asignación de rol)
+        return view('admin.roles.assign', compact('user'));
     }
     public function permissions($id) {
         $user = User::find($id);
         if($user) {
-            return response()->json(['permissions' => $user->getAllPermissions()->pluck('name')]);
+            // Vista: admin/roles/permissions (permisos de usuario)
+            $permissions = $user->getAllPermissions()->pluck('name');
+            return view('admin.roles.permissions', compact('permissions', 'user'));
         }
         $role = Role::findOrFail($id);
-        return response()->json(['permissions' => $role->permissions->pluck('name')]);
+        // Vista: admin/roles/permissions (permisos de rol)
+        $permissions = $role->permissions->pluck('name');
+        return view('admin.roles.permissions', compact('permissions', 'role'));
     }
 }

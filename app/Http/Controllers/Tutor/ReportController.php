@@ -9,7 +9,9 @@ use App\Models\Tutor\Report;
 class ReportController extends Controller
 {
     public function index() {
-        return response()->json(Report::all());
+        $reports = Report::all();
+        // Vista: tutor/reports/index (listado de reportes)
+        return view('tutor.reports.index', compact('reports'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class ReportController extends Controller
             'content' => 'required|string',
         ]);
         $report = Report::create($validated);
-        return response()->json(['message' => 'Reporte creado', 'report' => $report]);
+        // Vista: tutor/reports/show (detalle de reporte creado)
+        return view('tutor.reports.show', compact('report'));
     }
     public function show($id) {
-        return response()->json(Report::findOrFail($id));
+        $report = Report::findOrFail($id);
+        // Vista: tutor/reports/show (detalle de reporte)
+        return view('tutor.reports.show', compact('report'));
     }
     public function update(Request $request, $id) {
         $report = Report::findOrFail($id);
@@ -31,11 +36,14 @@ class ReportController extends Controller
             'content' => 'sometimes|required|string',
         ]);
         $report->update($validated);
-        return response()->json(['message' => 'Reporte actualizado', 'report' => $report]);
+        // Vista: tutor/reports/show (detalle de reporte actualizado)
+        return view('tutor.reports.show', compact('report'));
     }
     public function destroy($id) {
         $report = Report::findOrFail($id);
         $report->delete();
-        return response()->json(['message' => 'Reporte eliminado']);
+        // Vista: tutor/reports/index (listado tras eliminar)
+        $reports = Report::all();
+        return view('tutor.reports.index', compact('reports'));
     }
 }

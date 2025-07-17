@@ -9,7 +9,9 @@ use App\Models\Tutor\Achievement;
 class AchievementController extends Controller
 {
     public function index() {
-        return response()->json(Achievement::all());
+        $achievements = Achievement::all();
+        // Vista: tutor/achievements/index (listado de logros)
+        return view('tutor.achievements.index', compact('achievements'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -20,10 +22,13 @@ class AchievementController extends Controller
             'unlocked' => 'required|boolean',
         ]);
         $achievement = Achievement::create($validated);
-        return response()->json(['message' => 'Logro creado', 'achievement' => $achievement]);
+        // Vista: tutor/achievements/show (detalle de logro creado)
+        return view('tutor.achievements.show', compact('achievement'));
     }
     public function show($id) {
-        return response()->json(Achievement::findOrFail($id));
+        $achievement = Achievement::findOrFail($id);
+        // Vista: tutor/achievements/show (detalle de logro)
+        return view('tutor.achievements.show', compact('achievement'));
     }
     public function update(Request $request, $id) {
         $achievement = Achievement::findOrFail($id);
@@ -33,11 +38,14 @@ class AchievementController extends Controller
             'unlocked' => 'sometimes|required|boolean',
         ]);
         $achievement->update($validated);
-        return response()->json(['message' => 'Logro actualizado', 'achievement' => $achievement]);
+        // Vista: tutor/achievements/show (detalle de logro actualizado)
+        return view('tutor.achievements.show', compact('achievement'));
     }
     public function destroy($id) {
         $achievement = Achievement::findOrFail($id);
         $achievement->delete();
-        return response()->json(['message' => 'Logro eliminado']);
+        // Vista: tutor/achievements/index (listado tras eliminar)
+        $achievements = Achievement::all();
+        return view('tutor.achievements.index', compact('achievements'));
     }
 }

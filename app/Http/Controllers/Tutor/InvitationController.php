@@ -9,7 +9,9 @@ use App\Models\Tutor\Invitation;
 class InvitationController extends Controller
 {
     public function index() {
-        return response()->json(Invitation::all());
+        $invitations = Invitation::all();
+        // Vista: tutor/invitations/index (listado de invitaciones)
+        return view('tutor.invitations.index', compact('invitations'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class InvitationController extends Controller
             'accepted_at' => 'nullable|date',
         ]);
         $invitation = Invitation::create($validated);
-        return response()->json(['message' => 'Invitación creada', 'invitation' => $invitation]);
+        // Vista: tutor/invitations/show (detalle de invitación creada)
+        return view('tutor.invitations.show', compact('invitation'));
     }
     public function show($id) {
-        return response()->json(Invitation::findOrFail($id));
+        $invitation = Invitation::findOrFail($id);
+        // Vista: tutor/invitations/show (detalle de invitación)
+        return view('tutor.invitations.show', compact('invitation'));
     }
     public function update(Request $request, $id) {
         $invitation = Invitation::findOrFail($id);
@@ -31,11 +36,14 @@ class InvitationController extends Controller
             'accepted_at' => 'nullable|date',
         ]);
         $invitation->update($validated);
-        return response()->json(['message' => 'Invitación actualizada', 'invitation' => $invitation]);
+        // Vista: tutor/invitations/show (detalle de invitación actualizada)
+        return view('tutor.invitations.show', compact('invitation'));
     }
     public function destroy($id) {
         $invitation = Invitation::findOrFail($id);
         $invitation->delete();
-        return response()->json(['message' => 'Invitación eliminada']);
+        // Vista: tutor/invitations/index (listado tras eliminar)
+        $invitations = Invitation::all();
+        return view('tutor.invitations.index', compact('invitations'));
     }
 }

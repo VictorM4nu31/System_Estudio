@@ -11,10 +11,12 @@ class UserController extends Controller
 {
     public function index() {
         $users = User::all();
-        return response()->json($users);
+        // Vista: admin/users/index (listado de usuarios)
+        return view('admin.users.index', compact('users'));
     }
     public function create() {
-        return response()->json(['message' => 'Formulario de creación de usuario (users.create)']);
+        // Vista: admin/users/create (formulario de creación)
+        return view('admin.users.create');
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -29,11 +31,13 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
         $user->assignRole($validated['role']);
-        return response()->json(['message' => 'Usuario creado', 'user' => $user]);
+        // Vista: admin/users/show (detalle de usuario creado)
+        return view('admin.users.show', compact('user'));
     }
     public function edit($id) {
         $user = User::findOrFail($id);
-        return response()->json($user);
+        // Vista: admin/users/edit (formulario de edición)
+        return view('admin.users.edit', compact('user'));
     }
     public function update(Request $request, $id) {
         $user = User::findOrFail($id);
@@ -50,16 +54,20 @@ class UserController extends Controller
         if(isset($validated['role'])) {
             $user->syncRoles([$validated['role']]);
         }
-        return response()->json(['message' => 'Usuario actualizado', 'user' => $user]);
+        // Vista: admin/users/show (detalle de usuario actualizado)
+        return view('admin.users.show', compact('user'));
     }
     public function destroy($id) {
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json(['message' => 'Usuario eliminado']);
+        // Vista: admin/users/index (listado tras eliminar)
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
     public function suspend($id) {
         $user = User::findOrFail($id);
-        $user->update(['suspended' => true]); // Debes agregar el campo suspended a la tabla users si lo deseas
-        return response()->json(['message' => 'Usuario suspendido']);
+        $user->update(['suspended' => true]);
+        // Vista: admin/users/show (detalle de usuario suspendido)
+        return view('admin.users.show', compact('user'));
     }
 }

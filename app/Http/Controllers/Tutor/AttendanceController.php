@@ -9,7 +9,9 @@ use App\Models\Tutor\Attendance;
 class AttendanceController extends Controller
 {
     public function index() {
-        return response()->json(Attendance::all());
+        $attendances = Attendance::all();
+        // Vista: tutor/attendance/index (listado de asistencias)
+        return view('tutor.attendance.index', compact('attendances'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class AttendanceController extends Controller
             'present' => 'required|boolean',
         ]);
         $attendance = Attendance::create($validated);
-        return response()->json(['message' => 'Asistencia registrada', 'attendance' => $attendance]);
+        // Vista: tutor/attendance/show (detalle de asistencia registrada)
+        return view('tutor.attendance.show', compact('attendance'));
     }
     public function show($id) {
-        return response()->json(Attendance::findOrFail($id));
+        $attendance = Attendance::findOrFail($id);
+        // Vista: tutor/attendance/show (detalle de asistencia)
+        return view('tutor.attendance.show', compact('attendance'));
     }
     public function update(Request $request, $id) {
         $attendance = Attendance::findOrFail($id);
@@ -31,11 +36,14 @@ class AttendanceController extends Controller
             'present' => 'sometimes|required|boolean',
         ]);
         $attendance->update($validated);
-        return response()->json(['message' => 'Asistencia actualizada', 'attendance' => $attendance]);
+        // Vista: tutor/attendance/show (detalle de asistencia actualizada)
+        return view('tutor.attendance.show', compact('attendance'));
     }
     public function destroy($id) {
         $attendance = Attendance::findOrFail($id);
         $attendance->delete();
-        return response()->json(['message' => 'Asistencia eliminada']);
+        // Vista: tutor/attendance/index (listado tras eliminar)
+        $attendances = Attendance::all();
+        return view('tutor.attendance.index', compact('attendances'));
     }
 }

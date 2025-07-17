@@ -9,7 +9,9 @@ use App\Models\Teacher\Team;
 class TeamController extends Controller
 {
     public function index() {
-        return response()->json(Team::all());
+        $teams = Team::all();
+        // Vista: teacher/teams/index (listado de equipos)
+        return view('teacher.teams.index', compact('teams'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -19,10 +21,13 @@ class TeamController extends Controller
             'description' => 'nullable|string',
         ]);
         $team = Team::create($validated);
-        return response()->json(['message' => 'Equipo creado', 'team' => $team]);
+        // Vista: teacher/teams/show (detalle de equipo creado)
+        return view('teacher.teams.show', compact('team'));
     }
     public function show($id) {
-        return response()->json(Team::findOrFail($id));
+        $team = Team::findOrFail($id);
+        // Vista: teacher/teams/show (detalle de equipo)
+        return view('teacher.teams.show', compact('team'));
     }
     public function update(Request $request, $id) {
         $team = Team::findOrFail($id);
@@ -31,11 +36,14 @@ class TeamController extends Controller
             'description' => 'nullable|string',
         ]);
         $team->update($validated);
-        return response()->json(['message' => 'Equipo actualizado', 'team' => $team]);
+        // Vista: teacher/teams/show (detalle de equipo actualizado)
+        return view('teacher.teams.show', compact('team'));
     }
     public function destroy($id) {
         $team = Team::findOrFail($id);
         $team->delete();
-        return response()->json(['message' => 'Equipo eliminado']);
+        // Vista: teacher/teams/index (listado tras eliminar)
+        $teams = Team::all();
+        return view('teacher.teams.index', compact('teams'));
     }
 }

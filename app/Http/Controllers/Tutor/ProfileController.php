@@ -9,7 +9,9 @@ use App\Models\Tutor\Profile;
 class ProfileController extends Controller
 {
     public function index() {
-        return response()->json(Profile::all());
+        $profiles = Profile::all();
+        // Vista: tutor/profile/index (listado de perfiles)
+        return view('tutor.profile.index', compact('profiles'));
     }
     public function store(Request $request) {
         $validated = $request->validate([
@@ -18,10 +20,13 @@ class ProfileController extends Controller
             'data' => 'nullable|json',
         ]);
         $profile = Profile::create($validated);
-        return response()->json(['message' => 'Perfil creado', 'profile' => $profile]);
+        // Vista: tutor/profile/show (detalle de perfil creado)
+        return view('tutor.profile.show', compact('profile'));
     }
     public function show($id) {
-        return response()->json(Profile::findOrFail($id));
+        $profile = Profile::findOrFail($id);
+        // Vista: tutor/profile/show (detalle de perfil)
+        return view('tutor.profile.show', compact('profile'));
     }
     public function update(Request $request, $id) {
         $profile = Profile::findOrFail($id);
@@ -29,11 +34,14 @@ class ProfileController extends Controller
             'data' => 'nullable|json',
         ]);
         $profile->update($validated);
-        return response()->json(['message' => 'Perfil actualizado', 'profile' => $profile]);
+        // Vista: tutor/profile/show (detalle de perfil actualizado)
+        return view('tutor.profile.show', compact('profile'));
     }
     public function destroy($id) {
         $profile = Profile::findOrFail($id);
         $profile->delete();
-        return response()->json(['message' => 'Perfil eliminado']);
+        // Vista: tutor/profile/index (listado tras eliminar)
+        $profiles = Profile::all();
+        return view('tutor.profile.index', compact('profiles'));
     }
 }
