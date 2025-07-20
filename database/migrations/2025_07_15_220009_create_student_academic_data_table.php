@@ -14,7 +14,6 @@ return new class extends Migration
             $table->string('school');
             $table->string('grade');
             $table->string('enrollment');
-            $table->timestamp('updated_at')->nullable();
             $table->timestamps();
         });
     }
