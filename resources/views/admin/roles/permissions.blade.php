@@ -203,7 +203,7 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-6">
                 Permisos Organizados por Categoría
             </h3>
-            
+
             @php
                 $groupedPermissions = collect($permissions)->groupBy(function($permission) {
                     return explode('.', $permission)[0];
@@ -294,7 +294,7 @@
                             ]
                         };
                     @endphp
-                    
+
                     <div class="border rounded-lg p-4 {{ $categoryConfig['class'] }}">
                         <div class="flex items-center mb-3">
                             <span class="text-2xl mr-2">{{ $categoryConfig['icon'] }}</span>
@@ -305,7 +305,7 @@
                                 {{ count($categoryPermissions) }}
                             </span>
                         </div>
-                        
+
                         <div class="space-y-2">
                             @foreach($categoryPermissions as $permission)
                                 <div class="flex items-center text-sm">
@@ -324,7 +324,7 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-6">
                 Descripción de Permisos Clave
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <h4 class="font-medium text-gray-900 dark:text-white mb-3">🎓 Permisos Administrativos</h4>
@@ -333,10 +333,9 @@
                         <div><strong>users.delete:</strong> Eliminar usuarios del sistema</div>
                         <div><strong>settings.manage:</strong> Configurar parámetros globales</div>
                         <div><strong>admin.system.configure:</strong> Configuración avanzada</div>
-                        <div><strong>admin.moderation.manage:</strong> Gestión de reportes</div>
                     </div>
                 </div>
-                
+
                 <div>
                     <h4 class="font-medium text-gray-900 dark:text-white mb-3">📚 Permisos de Docente</h4>
                     <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
@@ -347,7 +346,7 @@
                         <div><strong>guild.members.approve:</strong> Aprobar miembros del gremio</div>
                     </div>
                 </div>
-                
+
                 <div>
                     <h4 class="font-medium text-gray-900 dark:text-white mb-3">🎒 Permisos de Alumno</h4>
                     <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
@@ -358,7 +357,7 @@
                         <div><strong>profile.customize:</strong> Personalizar perfil</div>
                     </div>
                 </div>
-                
+
                 <div>
                     <h4 class="font-medium text-gray-900 dark:text-white mb-3">🛡️ Permisos de Tutor</h4>
                     <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
@@ -381,7 +380,7 @@
                         <flux:icon.eye class="size-4" />
                         Ver perfil del usuario
                     </flux:button>
-                    
+
                     @can('users.edit')
                         <flux:button href="{{ route('admin.users.edit', $user) }}" variant="outline">
                             <flux:icon.pencil class="size-4" />
@@ -389,7 +388,7 @@
                         </flux:button>
                     @endcan
                 @endif
-                
+
                 <flux:button href="{{ route('admin.users.index') }}" variant="ghost">
                     <flux:icon.arrow-left class="size-4" />
                     Volver a usuarios

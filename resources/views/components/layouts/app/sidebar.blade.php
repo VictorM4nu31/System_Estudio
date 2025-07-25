@@ -23,13 +23,7 @@
                     <flux:navlist.item icon="users" :href="url('admin/users')" :current="request()->is('admin/users*')" wire:navigate>Usuarios</flux:navlist.item>
                     <flux:navlist.item icon="shield-check" :href="route('admin.roles.index')" :current="request()->routeIs('admin.roles.index')" wire:navigate>Roles y Permisos</flux:navlist.item>
                     <flux:navlist.item icon="cog" :href="url('admin/settings')" :current="request()->is('admin/settings*')" wire:navigate>Configuración</flux:navlist.item>
-                    <flux:navlist.item icon="calendar" :href="url('admin/events')" :current="request()->is('admin/events*')" wire:navigate>Eventos Globales</flux:navlist.item>
-                    <flux:navlist.item icon="star" :href="url('admin/badges')" :current="request()->is('admin/badges*')" wire:navigate>Insignias</flux:navlist.item>
-                    <flux:navlist.item icon="users" :href="url('admin/guilds')" :current="request()->is('admin/guilds*')" wire:navigate>Gremios</flux:navlist.item>
                     <flux:navlist.item icon="document-text" :href="url('admin/reports')" :current="request()->is('admin/reports*')" wire:navigate>Reportes</flux:navlist.item>
-                    <flux:navlist.item icon="chart-bar" :href="url('admin/analytics')" :current="request()->is('admin/analytics*')" wire:navigate>Analíticas</flux:navlist.item>
-                    <flux:navlist.item icon="archive-box" :href="url('admin/logs')" :current="request()->is('admin/logs*')" wire:navigate>Logs</flux:navlist.item>
-                    <flux:navlist.item icon="exclamation-triangle" :href="url('admin/moderation')" :current="request()->is('admin/moderation*')" wire:navigate>Moderación</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
             @endrole

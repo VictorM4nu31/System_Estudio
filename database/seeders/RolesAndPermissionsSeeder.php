@@ -33,13 +33,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'users.edit',
             'users.suspend',
             'admin.system.configure',
-            'admin.events.create',
-            'admin.events.manage',
             'admin.reports.view_all',
             'admin.analytics.view',
-            'admin.moderation.manage',
-            'admin.badges.global.create',
-            'guild.codes.view',
         ];
 
         // Crear permisos para DOCENTE (MAESTRO DE GREMIO)
