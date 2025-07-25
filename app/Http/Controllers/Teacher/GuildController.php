@@ -13,6 +13,11 @@ class GuildController extends Controller
         // Vista: teacher/guilds/index (listado de gremios)
         return view('teacher.guilds.index', compact('guilds'));
     }
+
+    public function create() {
+        // Vista: teacher/guilds/create (formulario de creación)
+        return view('teacher.guilds.create');
+    }
     public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required|string',
@@ -28,6 +33,12 @@ class GuildController extends Controller
         $guild = Guild::findOrFail($id);
         // Vista: teacher/guilds/show (detalle de gremio)
         return view('teacher.guilds.show', compact('guild'));
+    }
+
+    public function edit($id) {
+        $guild = Guild::findOrFail($id);
+        // Vista: teacher/guilds/edit (formulario de edición)
+        return view('teacher.guilds.edit', compact('guild'));
     }
     public function update(Request $request, $id) {
         $guild = Guild::findOrFail($id);

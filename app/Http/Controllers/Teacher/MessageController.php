@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Teacher\Message;
+use App\Models\Teacher\Guild;
 
 class MessageController extends Controller
 {
@@ -13,31 +14,47 @@ class MessageController extends Controller
         // Vista: teacher/messages/index (listado de mensajes)
         return view('teacher.messages.index', compact('messages'));
     }
+
+    public function create() {
+        $guilds = Guild::all();
+        // Vista: teacher/messages/create (formulario de creación)
+        return view('teacher.messages.create', compact('guilds'));
+    }
+
     public function store(Request $request) {
         $validated = $request->validate([
-            'content' => 'required|string',
-            'guild_id' => 'required|integer',
-            'teacher_id' => 'required|integer',
-            'recipient_id' => 'required|integer',
+            'content' => 'required|string|max:1000',
+            'recipient_id' => 'nullable|integer',
+            'guild_id' => 'nullable|integer',
         ]);
         $message = Message::create($validated);
         // Vista: teacher/messages/show (detalle de mensaje creado)
         return view('teacher.messages.show', compact('message'));
     }
+
     public function show($id) {
         $message = Message::findOrFail($id);
         // Vista: teacher/messages/show (detalle de mensaje)
         return view('teacher.messages.show', compact('message'));
     }
+
+    public function edit($id) {
+        $message = Message::findOrFail($id);
+        $guilds = Guild::all();
+        // Vista: teacher/messages/edit (formulario de edición)
+        return view('teacher.messages.edit', compact('message', 'guilds'));
+    }
+
     public function update(Request $request, $id) {
         $message = Message::findOrFail($id);
         $validated = $request->validate([
-            'content' => 'sometimes|required|string',
+            'content' => 'sometimes|required|string|max:1000',
         ]);
         $message->update($validated);
         // Vista: teacher/messages/show (detalle de mensaje actualizado)
         return view('teacher.messages.show', compact('message'));
     }
+
     public function destroy($id) {
         $message = Message::findOrFail($id);
         $message->delete();

@@ -3,14 +3,31 @@
 namespace App\Models\Teacher;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
+    protected $table = 'teacher_tasks';
+
     protected $fillable = [
         'title',
         'description',
-        'mission_id',
+        'guild_id',
         'teacher_id',
         'due_date',
     ];
+
+    protected $casts = [
+        'due_date' => 'datetime',
+    ];
+
+    public function guild(): BelongsTo
+    {
+        return $this->belongsTo(Guild::class, 'guild_id');
+    }
+
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Teacher::class, 'teacher_id');
+    }
 }

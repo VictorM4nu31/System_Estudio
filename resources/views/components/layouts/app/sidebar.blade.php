@@ -28,6 +28,22 @@
             </flux:navlist>
             @endrole
 
+            @role('teacher')
+            <flux:navlist variant="outline" class="mt-4">
+                <flux:navlist.group :heading="__('Docente')" class="grid">
+                    <flux:navlist.item icon="users" :href="route('teacher.guilds.index')" :current="request()->routeIs('teacher.guilds.*')" wire:navigate>Gremios</flux:navlist.item>
+                    <flux:navlist.item icon="flag" :href="route('teacher.missions.index')" :current="request()->routeIs('teacher.missions.*')" wire:navigate>Misiones</flux:navlist.item>
+                    <flux:navlist.item icon="clipboard-document-list" :href="route('teacher.tasks.index')" :current="request()->routeIs('teacher.tasks.*')" wire:navigate>Tareas</flux:navlist.item>
+                    <flux:navlist.item icon="shopping-cart" :href="route('teacher.shops.index')" :current="request()->routeIs('teacher.shops.*')" wire:navigate>Tiendas</flux:navlist.item>
+                    <flux:navlist.item icon="gift" :href="route('teacher.rewards.index')" :current="request()->routeIs('teacher.rewards.*')" wire:navigate>Recompensas</flux:navlist.item>
+                    <flux:navlist.item icon="megaphone" :href="route('teacher.announcements.index')" :current="request()->routeIs('teacher.announcements.*')" wire:navigate>Anuncios</flux:navlist.item>
+                    <flux:navlist.item icon="chat-bubble-left-right" :href="route('teacher.messages.index')" :current="request()->routeIs('teacher.messages.*')" wire:navigate>Mensajes</flux:navlist.item>
+                    <flux:navlist.item icon="calendar" :href="route('teacher.events.index')" :current="request()->routeIs('teacher.events.*')" wire:navigate>Eventos</flux:navlist.item>
+                    <flux:navlist.item icon="user-group" :href="route('teacher.teams.index')" :current="request()->routeIs('teacher.teams.*')" wire:navigate>Equipos</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+            @endrole
+
             <flux:spacer />
 
             <flux:navlist variant="outline">

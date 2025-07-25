@@ -13,22 +13,34 @@ class AnnouncementController extends Controller
         // Vista: teacher/announcements/index (listado de anuncios)
         return view('teacher.announcements.index', compact('announcements'));
     }
+
+    public function create() {
+        // Vista: teacher/announcements/create (formulario de creación)
+        return view('teacher.announcements.create');
+    }
+
     public function store(Request $request) {
         $validated = $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
-            'guild_id' => 'required|integer',
-            'teacher_id' => 'required|integer',
         ]);
         $announcement = Announcement::create($validated);
         // Vista: teacher/announcements/show (detalle de anuncio creado)
         return view('teacher.announcements.show', compact('announcement'));
     }
+
     public function show($id) {
         $announcement = Announcement::findOrFail($id);
         // Vista: teacher/announcements/show (detalle de anuncio)
         return view('teacher.announcements.show', compact('announcement'));
     }
+
+    public function edit($id) {
+        $announcement = Announcement::findOrFail($id);
+        // Vista: teacher/announcements/edit (formulario de edición)
+        return view('teacher.announcements.edit', compact('announcement'));
+    }
+
     public function update(Request $request, $id) {
         $announcement = Announcement::findOrFail($id);
         $validated = $request->validate([
@@ -39,6 +51,7 @@ class AnnouncementController extends Controller
         // Vista: teacher/announcements/show (detalle de anuncio actualizado)
         return view('teacher.announcements.show', compact('announcement'));
     }
+
     public function destroy($id) {
         $announcement = Announcement::findOrFail($id);
         $announcement->delete();
