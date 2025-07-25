@@ -17,17 +17,17 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                 <form action="{{ route('admin.users.store') }}" method="POST">
                     @csrf
-                    
+
                     <div class="space-y-6">
                         <!-- Name Field -->
                         <div>
                             <flux:label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Nombre completo
                             </flux:label>
-                            <flux:input 
-                                id="name" 
-                                name="name" 
-                                type="text" 
+                            <flux:input
+                                id="name"
+                                name="name"
+                                type="text"
                                 value="{{ old('name') }}"
                                 placeholder="Ingresa el nombre completo"
                                 class="mt-1 block w-full"
@@ -43,10 +43,10 @@
                             <flux:label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Correo electrónico
                             </flux:label>
-                            <flux:input 
-                                id="email" 
-                                name="email" 
-                                type="email" 
+                            <flux:input
+                                id="email"
+                                name="email"
+                                type="email"
                                 value="{{ old('email') }}"
                                 placeholder="usuario@ejemplo.com"
                                 class="mt-1 block w-full"
@@ -62,10 +62,10 @@
                             <flux:label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Contraseña
                             </flux:label>
-                            <flux:input 
-                                id="password" 
-                                name="password" 
-                                type="password" 
+                            <flux:input
+                                id="password"
+                                name="password"
+                                type="password"
                                 placeholder="Mínimo 6 caracteres"
                                 class="mt-1 block w-full"
                                 required
@@ -81,19 +81,7 @@
                                 Rol del usuario
                             </flux:label>
                             <flux:select id="role" name="role" class="mt-1 block w-full" required>
-                                <option value="">Selecciona un rol</option>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
-                                    🎓 Administrador (Gran Maestro)
-                                </option>
-                                <option value="teacher" {{ old('role') == 'teacher' ? 'selected' : '' }}>
-                                    📚 Docente (Maestro de Gremio)
-                                </option>
-                                <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>
-                                    🎒 Alumno (Aventurero)
-                                </option>
-                                <option value="tutor" {{ old('role') == 'tutor' ? 'selected' : '' }}>
-                                    🛡️ Tutor (Guardián)
-                                </option>
+                                <option value="teacher" selected>📚 Docente (Maestro de Gremio)</option>
                             </flux:select>
                             @error('role')
                                 <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -102,19 +90,10 @@
 
                         <!-- Role Descriptions -->
                         <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                            <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Descripción de roles:</h3>
+                            <h3 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Descripción de rol:</h3>
                             <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                                 <div>
-                                    <strong>🎓 Administrador:</strong> Gestiona usuarios, configuración del sistema y tiene acceso total.
-                                </div>
-                                <div>
                                     <strong>📚 Docente:</strong> Crea gremios, asigna misiones y gestiona estudiantes.
-                                </div>
-                                <div>
-                                    <strong>🎒 Alumno:</strong> Participa en gremios, completa misiones y gana recompensas.
-                                </div>
-                                <div>
-                                    <strong>🛡️ Tutor:</strong> Supervisa el progreso académico de sus estudiantes.
                                 </div>
                             </div>
                         </div>
@@ -138,7 +117,7 @@
         <div class="max-w-2xl">
             <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 p-6">
                 <h3 class="text-lg font-medium text-blue-900 dark:text-blue-100 mb-4">
-                    <flux:icon.info class="inline size-5 mr-2" />
+                    <flux:icon.exclamation-triangle class="inline size-5 mr-2" />
                     Permisos por rol
                 </h3>
                 <div class="space-y-3 text-sm text-blue-800 dark:text-blue-200">

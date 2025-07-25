@@ -27,7 +27,7 @@
                         Rol actualizado correctamente
                     </h3>
                     <p class="text-sm text-green-800 dark:text-green-200 mt-1">
-                        El usuario {{ $user->name }} ahora tiene el rol: 
+                        El usuario {{ $user->name }} ahora tiene el rol:
                         <strong>{{ ucfirst($user->roles->first()->name ?? 'Sin rol') }}</strong>
                     </p>
                 </div>
@@ -106,7 +106,7 @@
                 <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
                     Permisos asignados al rol: {{ ucfirst($role->name) }}
                 </h3>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($user->getAllPermissions()->groupBy(function($permission) {
                         return explode('.', $permission->name)[0];
@@ -137,19 +137,19 @@
                     <flux:icon.eye class="size-4" />
                     Ver perfil completo
                 </flux:button>
-                
+
                 <flux:button href="{{ route('admin.users.edit', $user) }}" variant="outline">
                     <flux:icon.pencil class="size-4" />
                     Editar usuario
                 </flux:button>
-                
+
                 @can('permissions.view')
                     <flux:button href="{{ route('admin.roles.permissions', $user) }}" variant="outline">
                         <flux:icon.key class="size-4" />
                         Ver permisos detallados
                     </flux:button>
                 @endcan
-                
+
                 <flux:button href="{{ route('admin.users.index') }}" variant="ghost">
                     <flux:icon.arrow-left class="size-4" />
                     Volver a usuarios
@@ -162,10 +162,10 @@
             @php $role = $user->roles->first(); @endphp
             <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
                 <h3 class="text-lg font-medium text-blue-900 dark:text-blue-100 mb-4">
-                    <flux:icon.info class="inline size-5 mr-2" />
+                    <flux:icon.exclamation-triangle class="inline size-5 mr-2" />
                     Información del rol asignado
                 </h3>
-                
+
                 @if($role->name === 'admin')
                     <div class="text-sm text-blue-800 dark:text-blue-200 space-y-2">
                         <p><strong>Administrador (Gran Maestro):</strong> Tiene control total sobre el sistema educativo RPG.</p>

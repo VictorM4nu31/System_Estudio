@@ -23,7 +23,7 @@
                         ⚠️ Advertencia de Configuración Avanzada
                     </h3>
                     <p class="text-sm text-yellow-700 dark:text-yellow-300 mt-1">
-                        Los cambios en esta sección pueden afectar el funcionamiento del sistema. 
+                        Los cambios en esta sección pueden afectar el funcionamiento del sistema.
                         Solo modifica estos valores si entiendes completamente su impacto.
                     </p>
                 </div>
@@ -56,9 +56,9 @@
                             <flux:label for="db_host" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Host de Base de Datos
                             </flux:label>
-                            <flux:input 
-                                id="db_host" 
-                                type="text" 
+                            <flux:input
+                                id="db_host"
+                                type="text"
                                 value="{{ config('database.connections.'.config('database.default').'.host') }}"
                                 class="mt-1 block w-full"
                                 readonly
@@ -69,9 +69,9 @@
                             <flux:label for="db_port" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Puerto
                             </flux:label>
-                            <flux:input 
-                                id="db_port" 
-                                type="text" 
+                            <flux:input
+                                id="db_port"
+                                type="text"
                                 value="{{ config('database.connections.'.config('database.default').'.port') }}"
                                 class="mt-1 block w-full"
                                 readonly
@@ -82,9 +82,9 @@
                             <flux:label for="db_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Nombre de Base de Datos
                             </flux:label>
-                            <flux:input 
-                                id="db_name" 
-                                type="text" 
+                            <flux:input
+                                id="db_name"
+                                type="text"
                                 value="{{ config('database.connections.'.config('database.default').'.database') }}"
                                 class="mt-1 block w-full"
                                 readonly
@@ -95,9 +95,9 @@
                             <flux:label for="db_username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Usuario
                             </flux:label>
-                            <flux:input 
-                                id="db_username" 
-                                type="text" 
+                            <flux:input
+                                id="db_username"
+                                type="text"
                                 value="{{ config('database.connections.'.config('database.default').'.username') }}"
                                 class="mt-1 block w-full"
                                 readonly
@@ -107,7 +107,7 @@
 
                     <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                         <p class="text-sm text-blue-800 dark:text-blue-200">
-                            <flux:icon.info class="inline size-4 mr-1" />
+                            <flux:icon.exclamation-triangle class="inline size-4 mr-1" />
                             La configuración de la base de datos debe modificarse en el archivo <code>.env</code>
                         </p>
                     </div>
@@ -170,9 +170,9 @@
                             <flux:label for="cache_ttl" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 TTL de Cache (segundos)
                             </flux:label>
-                            <flux:input 
-                                id="cache_ttl" 
-                                type="number" 
+                            <flux:input
+                                id="cache_ttl"
+                                type="number"
                                 value="3600"
                                 class="mt-1 block w-full"
                             />
@@ -205,14 +205,14 @@
                         <!-- Experience Settings -->
                         <div class="space-y-4">
                             <h4 class="font-medium text-gray-900 dark:text-white">🎯 Sistema de Experiencia</h4>
-                            
+
                             <div>
                                 <flux:label for="base_exp" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Experiencia Base por Misión
                                 </flux:label>
-                                <flux:input 
-                                    id="base_exp" 
-                                    type="number" 
+                                <flux:input
+                                    id="base_exp"
+                                    type="number"
                                     value="100"
                                     class="mt-1 block w-full"
                                 />
@@ -222,9 +222,9 @@
                                 <flux:label for="exp_multiplier" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Multiplicador de Experiencia
                                 </flux:label>
-                                <flux:input 
-                                    id="exp_multiplier" 
-                                    type="number" 
+                                <flux:input
+                                    id="exp_multiplier"
+                                    type="number"
                                     step="0.1"
                                     value="1.0"
                                     class="mt-1 block w-full"
@@ -235,9 +235,9 @@
                                 <flux:label for="max_level" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Nivel Máximo
                                 </flux:label>
-                                <flux:input 
-                                    id="max_level" 
-                                    type="number" 
+                                <flux:input
+                                    id="max_level"
+                                    type="number"
                                     value="100"
                                     class="mt-1 block w-full"
                                 />
@@ -247,14 +247,14 @@
                         <!-- Currency Settings -->
                         <div class="space-y-4">
                             <h4 class="font-medium text-gray-900 dark:text-white">💰 Sistema de Monedas</h4>
-                            
+
                             <div>
                                 <flux:label for="base_coins" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Monedas Base por Misión
                                 </flux:label>
-                                <flux:input 
-                                    id="base_coins" 
-                                    type="number" 
+                                <flux:input
+                                    id="base_coins"
+                                    type="number"
                                     value="50"
                                     class="mt-1 block w-full"
                                 />
@@ -264,9 +264,9 @@
                                 <flux:label for="daily_bonus" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Bonus Diario
                                 </flux:label>
-                                <flux:input 
-                                    id="daily_bonus" 
-                                    type="number" 
+                                <flux:input
+                                    id="daily_bonus"
+                                    type="number"
                                     value="10"
                                     class="mt-1 block w-full"
                                 />
@@ -276,9 +276,9 @@
                                 <flux:label for="currency_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Nombre de Moneda
                                 </flux:label>
-                                <flux:input 
-                                    id="currency_name" 
-                                    type="text" 
+                                <flux:input
+                                    id="currency_name"
+                                    type="text"
                                     value="Monedas Mágicas"
                                     class="mt-1 block w-full"
                                 />
@@ -288,14 +288,14 @@
                         <!-- Mission Settings -->
                         <div class="space-y-4">
                             <h4 class="font-medium text-gray-900 dark:text-white">📜 Sistema de Misiones</h4>
-                            
+
                             <div>
                                 <flux:label for="max_missions" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Misiones Simultáneas
                                 </flux:label>
-                                <flux:input 
-                                    id="max_missions" 
-                                    type="number" 
+                                <flux:input
+                                    id="max_missions"
+                                    type="number"
                                     value="5"
                                     class="mt-1 block w-full"
                                 />
@@ -305,9 +305,9 @@
                                 <flux:label for="mission_timeout" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Timeout de Misión (horas)
                                 </flux:label>
-                                <flux:input 
-                                    id="mission_timeout" 
-                                    type="number" 
+                                <flux:input
+                                    id="mission_timeout"
+                                    type="number"
                                     value="72"
                                     class="mt-1 block w-full"
                                 />
@@ -349,9 +349,9 @@
                             <flux:label for="session_lifetime" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Duración de Sesión (minutos)
                             </flux:label>
-                            <flux:input 
-                                id="session_lifetime" 
-                                type="number" 
+                            <flux:input
+                                id="session_lifetime"
+                                type="number"
                                 value="{{ config('session.lifetime') }}"
                                 class="mt-1 block w-full"
                             />
@@ -361,9 +361,9 @@
                             <flux:label for="password_timeout" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Timeout de Confirmación de Contraseña (segundos)
                             </flux:label>
-                            <flux:input 
-                                id="password_timeout" 
-                                type="number" 
+                            <flux:input
+                                id="password_timeout"
+                                type="number"
                                 value="{{ config('auth.password_timeout') }}"
                                 class="mt-1 block w-full"
                             />
@@ -373,9 +373,9 @@
                             <flux:label for="max_login_attempts" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Intentos Máximos de Login
                             </flux:label>
-                            <flux:input 
-                                id="max_login_attempts" 
-                                type="number" 
+                            <flux:input
+                                id="max_login_attempts"
+                                type="number"
                                 value="5"
                                 class="mt-1 block w-full"
                             />
@@ -385,9 +385,9 @@
                             <flux:label for="lockout_duration" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Duración de Bloqueo (minutos)
                             </flux:label>
-                            <flux:input 
-                                id="lockout_duration" 
-                                type="number" 
+                            <flux:input
+                                id="lockout_duration"
+                                type="number"
                                 value="15"
                                 class="mt-1 block w-full"
                             />
@@ -467,9 +467,9 @@
                             <flux:label for="mail_host" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Host SMTP
                             </flux:label>
-                            <flux:input 
-                                id="mail_host" 
-                                type="text" 
+                            <flux:input
+                                id="mail_host"
+                                type="text"
                                 value="{{ config('mail.mailers.smtp.host') }}"
                                 class="mt-1 block w-full"
                             />
@@ -479,9 +479,9 @@
                             <flux:label for="mail_port" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Puerto SMTP
                             </flux:label>
-                            <flux:input 
-                                id="mail_port" 
-                                type="number" 
+                            <flux:input
+                                id="mail_port"
+                                type="number"
                                 value="{{ config('mail.mailers.smtp.port') }}"
                                 class="mt-1 block w-full"
                             />
@@ -502,9 +502,9 @@
                             <flux:label for="mail_username" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Usuario SMTP
                             </flux:label>
-                            <flux:input 
-                                id="mail_username" 
-                                type="text" 
+                            <flux:input
+                                id="mail_username"
+                                type="text"
                                 value="{{ config('mail.mailers.smtp.username') }}"
                                 class="mt-1 block w-full"
                             />
@@ -514,9 +514,9 @@
                             <flux:label for="mail_from_address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Dirección de Envío
                             </flux:label>
-                            <flux:input 
-                                id="mail_from_address" 
-                                type="email" 
+                            <flux:input
+                                id="mail_from_address"
+                                type="email"
                                 value="{{ config('mail.from.address') }}"
                                 class="mt-1 block w-full"
                             />
@@ -526,9 +526,9 @@
                             <flux:label for="mail_from_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Nombre de Envío
                             </flux:label>
-                            <flux:input 
-                                id="mail_from_name" 
-                                type="text" 
+                            <flux:input
+                                id="mail_from_name"
+                                type="text"
                                 value="{{ config('mail.from.name') }}"
                                 class="mt-1 block w-full"
                             />
@@ -554,7 +554,7 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
                 🔧 Acciones del Sistema
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <flux:button variant="outline" class="flex flex-col items-center p-4 h-32">
                     <flux:icon.arrow-path class="size-8 mb-2 text-blue-600" />

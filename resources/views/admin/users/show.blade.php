@@ -168,7 +168,7 @@
                 <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
                     Información Específica del Rol: {{ ucfirst($role->name) }}
                 </h3>
-                
+
                 @if($role->name === 'admin')
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
@@ -295,11 +295,11 @@
                         Editar Usuario
                     </flux:button>
                 @endcan
-                
+
                 @can('users.suspend')
                     @if(!($user->suspended ?? false))
                         <flux:button onclick="confirm('¿Estás seguro de suspender este usuario?') && document.getElementById('suspend-form').submit()" variant="outline" class="text-orange-600 hover:text-orange-700">
-                            <flux:icon.ban class="size-4" />
+                            <flux:icon.exclamation-triangle class="size-4" />
                             Suspender Usuario
                         </flux:button>
                         <form id="suspend-form" action="{{ route('admin.users.suspend', $user) }}" method="POST" style="display: none;">
@@ -307,7 +307,7 @@
                         </form>
                     @endif
                 @endcan
-                
+
                 @can('users.delete')
                     <flux:button onclick="confirm('¿Estás seguro de eliminar este usuario? Esta acción no se puede deshacer.') && document.getElementById('delete-form').submit()" variant="outline" class="text-red-600 hover:text-red-700">
                         <flux:icon.trash class="size-4" />

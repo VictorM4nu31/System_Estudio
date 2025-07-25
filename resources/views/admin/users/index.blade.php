@@ -69,7 +69,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
             <div class="p-6">
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Lista de Usuarios</h2>
-                
+
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-gray-50 dark:bg-gray-700">
@@ -154,21 +154,21 @@
                                                     <flux:icon.pencil class="size-4" />
                                                 </flux:button>
                                             @endcan
-                                            
+
                                             @can('permissions.view')
                                                 <flux:button href="{{ route('admin.roles.permissions', $user) }}" variant="ghost" size="sm">
                                                     <flux:icon.key class="size-4" />
                                                 </flux:button>
                                             @endcan
-                                            
+
                                             @can('users.suspend')
                                                 @if(!($user->suspended ?? false))
                                                     <flux:button wire:click="suspend({{ $user->id }})" variant="ghost" size="sm" class="text-orange-600 hover:text-orange-700">
-                                                        <flux:icon.ban class="size-4" />
+                                                        <flux:icon.exclamation-triangle class="size-4" />
                                                     </flux:button>
                                                 @endif
                                             @endcan
-                                            
+
                                             @can('users.delete')
                                                 <flux:button wire:click="delete({{ $user->id }})" variant="ghost" size="sm" class="text-red-600 hover:text-red-700">
                                                     <flux:icon.trash class="size-4" />

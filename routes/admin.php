@@ -16,22 +16,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
     // Usuarios
     Route::prefix('users')->middleware('permission:users.view')->group(function () {
-        Route::get('/', [UserController::class, 'index']);
+        Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
         Route::middleware('permission:users.create')->group(function () {
-            Route::get('/create', [UserController::class, 'create']);
-            Route::post('/', [UserController::class, 'store']);
+            Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+            Route::post('/', [UserController::class, 'store'])->name('admin.users.store');
         });
         Route::middleware('permission:users.edit')->group(function () {
-            Route::get('/{id}/edit', [UserController::class, 'edit']);
-            Route::put('/{id}', [UserController::class, 'update']);
+            Route::get('/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+            Route::put('/{id}', [UserController::class, 'update'])->name('admin.users.update');
         });
-        Route::delete('/{id}', [UserController::class, 'destroy'])->middleware('permission:users.delete');
-        Route::post('/{id}/suspend', [UserController::class, 'suspend'])->middleware('permission:users.suspend');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->middleware('permission:users.delete')->name('admin.users.destroy');
+        Route::post('/{id}/suspend', [UserController::class, 'suspend'])->middleware('permission:users.suspend')->name('admin.users.suspend');
     });
 
     // Roles y permisos
     Route::post('/roles/assign', [RoleController::class, 'assign'])->middleware('permission:roles.assign');
-    Route::get('/roles/{id}/permissions', [RoleController::class, 'permissions'])->middleware('permission:permissions.view');
+    Route::get('/roles/{id}/permissions', [RoleController::class, 'permissions'])->middleware('permission:permissions.view')->name('admin.roles.permissions');
 
     // Configuración
     Route::get('/settings', [SettingsController::class, 'manage'])->middleware('permission:settings.manage');
