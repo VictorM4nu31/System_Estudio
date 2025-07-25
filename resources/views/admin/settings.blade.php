@@ -20,92 +20,8 @@
             </div>
         </div>
 
-        <!-- System Status Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center">
-                    <div class="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
-                        <flux:icon.check-circle class="size-6 text-green-600 dark:text-green-400" />
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Estado del Sistema</h3>
-                        <p class="text-lg font-bold text-green-600 dark:text-green-400">Activo</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center">
-                    <div class="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
-                        <flux:icon.server class="size-6 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Entorno</h3>
-                        <p class="text-lg font-bold text-gray-900 dark:text-white">{{ config('app.env') }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center">
-                    <div class="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
-                        <flux:icon.code class="size-6 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Versión</h3>
-                        <p class="text-lg font-bold text-gray-900 dark:text-white">v1.0.0</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                <div class="flex items-center">
-                    <div class="p-2 bg-orange-100 dark:bg-orange-900/50 rounded-lg">
-                        <flux:icon.shield class="size-6 text-orange-600 dark:text-orange-400" />
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Debug</h3>
-                        <p class="text-lg font-bold text-gray-900 dark:text-white">
-                            {{ config('app.debug') ? 'Activo' : 'Inactivo' }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Configuration Sections -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Application Settings -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">
-                        🎓 Configuración de la Aplicación
-                    </h3>
-                    <flux:button variant="ghost" size="sm">
-                        <flux:icon.pencil class="size-4" />
-                    </flux:button>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between py-2">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">Nombre del Sistema</span>
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ config('app.name') }}</span>
-                    </div>
-                    <div class="flex items-center justify-between py-2">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">URL Base</span>
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ config('app.url') }}</span>
-                    </div>
-                    <div class="flex items-center justify-between py-2">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">Zona Horaria</span>
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ config('app.timezone') }}</span>
-                    </div>
-                    <div class="flex items-center justify-between py-2">
-                        <span class="text-sm text-gray-600 dark:text-gray-400">Idioma</span>
-                        <span class="text-sm font-medium text-gray-900 dark:text-white">{{ config('app.locale') }}</span>
-                    </div>
-                </div>
-            </div>
-
             <!-- RPG System Settings -->
             <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                 <div class="flex items-center justify-between mb-4">
@@ -182,115 +98,21 @@
                 <div class="space-y-4">
                     <div class="flex items-center justify-between py-2">
                         <span class="text-sm text-gray-600 dark:text-gray-400">Notificaciones por email</span>
-                        <flux:toggle checked />
+                        <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
                     </div>
                     <div class="flex items-center justify-between py-2">
                         <span class="text-sm text-gray-600 dark:text-gray-400">Notificaciones a tutores</span>
-                        <flux:toggle checked />
+                        <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
                     </div>
                     <div class="flex items-center justify-between py-2">
                         <span class="text-sm text-gray-600 dark:text-gray-400">Reportes automáticos</span>
-                        <flux:toggle checked />
+                        <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
                     </div>
                     <div class="flex items-center justify-between py-2">
                         <span class="text-sm text-gray-600 dark:text-gray-400">Notificaciones push</span>
-                        <flux:toggle />
+                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- System Information -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                📊 Información del Sistema
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div>
-                    <h4 class="font-medium text-gray-900 dark:text-white mb-3">Aplicación</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Framework:</span>
-                            <span class="text-gray-900 dark:text-white">Laravel {{ app()->version() }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">PHP:</span>
-                            <span class="text-gray-900 dark:text-white">{{ PHP_VERSION }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Servidor:</span>
-                            <span class="text-gray-900 dark:text-white">{{ $_SERVER['SERVER_SOFTWARE'] ?? 'N/A' }}</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium text-gray-900 dark:text-white mb-3">Base de Datos</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Conexión:</span>
-                            <span class="text-gray-900 dark:text-white">{{ config('database.default') }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Host:</span>
-                            <span class="text-gray-900 dark:text-white">{{ config('database.connections.'.config('database.default').'.host') }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Base:</span>
-                            <span class="text-gray-900 dark:text-white">{{ config('database.connections.'.config('database.default').'.database') }}</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="font-medium text-gray-900 dark:text-white mb-3">Cache y Sesiones</h4>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Cache:</span>
-                            <span class="text-gray-900 dark:text-white">{{ config('cache.default') }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Sesiones:</span>
-                            <span class="text-gray-900 dark:text-white">{{ config('session.driver') }}</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-600 dark:text-gray-400">Queue:</span>
-                            <span class="text-gray-900 dark:text-white">{{ config('queue.default') }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                ⚡ Acciones Rápidas
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <flux:button variant="outline" class="flex flex-col items-center p-4 h-24">
-                    <flux:icon.arrow-path class="size-6 mb-2" />
-                    <span class="text-sm">Limpiar Cache</span>
-                </flux:button>
-                
-                <flux:button variant="outline" class="flex flex-col items-center p-4 h-24">
-                    <flux:icon.database class="size-6 mb-2" />
-                    <span class="text-sm">Backup BD</span>
-                </flux:button>
-                
-                <flux:button variant="outline" class="flex flex-col items-center p-4 h-24">
-                    <flux:icon.document-text class="size-6 mb-2" />
-                    <span class="text-sm">Ver Logs</span>
-                </flux:button>
-                
-                @can('admin.system.configure')
-                    <flux:button href="{{ route('admin.settings.advanced') }}" variant="outline" class="flex flex-col items-center p-4 h-24">
-                        <flux:icon.cog class="size-6 mb-2" />
-                        <span class="text-sm">Config. Avanzada</span>
-                    </flux:button>
-                @endcan
             </div>
         </div>
 
@@ -299,7 +121,7 @@
             <h3 class="text-lg font-medium text-purple-900 dark:text-purple-100 mb-4">
                 🎮 Características del Sistema Educativo RPG
             </h3>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white dark:bg-gray-800 rounded-lg p-4">
                     <div class="flex items-center mb-2">
@@ -308,7 +130,7 @@
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">Gran Maestro del sistema con control total</p>
                 </div>
-                
+
                 <div class="bg-white dark:bg-gray-800 rounded-lg p-4">
                     <div class="flex items-center mb-2">
                         <span class="text-2xl mr-2">📚</span>
@@ -316,7 +138,7 @@
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">Maestro de Gremio que guía aventureros</p>
                 </div>
-                
+
                 <div class="bg-white dark:bg-gray-800 rounded-lg p-4">
                     <div class="flex items-center mb-2">
                         <span class="text-2xl mr-2">🎒</span>
@@ -324,7 +146,7 @@
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">Aventurero que completa misiones educativas</p>
                 </div>
-                
+
                 <div class="bg-white dark:bg-gray-800 rounded-lg p-4">
                     <div class="flex items-center mb-2">
                         <span class="text-2xl mr-2">🛡️</span>

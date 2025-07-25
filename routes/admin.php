@@ -27,15 +27,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         });
         Route::delete('/{id}', [UserController::class, 'destroy'])->middleware('permission:users.delete')->name('admin.users.destroy');
         Route::post('/{id}/suspend', [UserController::class, 'suspend'])->middleware('permission:users.suspend')->name('admin.users.suspend');
+        Route::get('/{id}', [UserController::class, 'show'])->name('admin.users.show');
     });
 
     // Roles y permisos
+    Route::get('/roles', [RoleController::class, 'index'])->middleware('permission:roles.view')->name('admin.roles.index');
     Route::post('/roles/assign', [RoleController::class, 'assign'])->middleware('permission:roles.assign');
     Route::get('/roles/{id}/permissions', [RoleController::class, 'permissions'])->middleware('permission:permissions.view')->name('admin.roles.permissions');
 
     // Configuración
-    Route::get('/settings', [SettingsController::class, 'manage'])->middleware('permission:settings.manage');
-    Route::get('/settings/advanced', [SettingsController::class, 'advanced'])->middleware('permission:admin.system.configure');
+    Route::get('/settings', [SettingsController::class, 'manage'])->middleware('permission:settings.manage')->name('admin.settings');
+    Route::get('/settings/advanced', [SettingsController::class, 'advanced'])->middleware('permission:admin.system.configure')->name('admin.settings.advanced');
 
     // Eventos
     Route::prefix('events')->group(function () {

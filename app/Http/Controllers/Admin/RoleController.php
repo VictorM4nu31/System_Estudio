@@ -31,4 +31,11 @@ class RoleController extends Controller
         $permissions = $role->permissions->pluck('name');
         return view('admin.roles.permissions', compact('permissions', 'role'));
     }
+
+    public function index()
+    {
+        $roles = \Spatie\Permission\Models\Role::with('permissions')->get();
+        $permissions = \Spatie\Permission\Models\Permission::all();
+        return view('admin.roles.index', compact('roles', 'permissions'));
+    }
 }

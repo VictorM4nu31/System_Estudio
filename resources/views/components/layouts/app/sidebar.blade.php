@@ -20,9 +20,8 @@
             @role('admin')
             <flux:navlist variant="outline" class="mt-4">
                 <flux:navlist.group :heading="__('Admin')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>Dashboard</flux:navlist.item>
                     <flux:navlist.item icon="users" :href="url('admin/users')" :current="request()->is('admin/users*')" wire:navigate>Usuarios</flux:navlist.item>
-                    <flux:navlist.item icon="shield-check" :href="url('admin/roles/assign')" :current="request()->is('admin/roles*')" wire:navigate>Roles y Permisos</flux:navlist.item>
+                    <flux:navlist.item icon="shield-check" :href="route('admin.roles.index')" :current="request()->routeIs('admin.roles.index')" wire:navigate>Roles y Permisos</flux:navlist.item>
                     <flux:navlist.item icon="cog" :href="url('admin/settings')" :current="request()->is('admin/settings*')" wire:navigate>Configuración</flux:navlist.item>
                     <flux:navlist.item icon="calendar" :href="url('admin/events')" :current="request()->is('admin/events*')" wire:navigate>Eventos Globales</flux:navlist.item>
                     <flux:navlist.item icon="star" :href="url('admin/badges')" :current="request()->is('admin/badges*')" wire:navigate>Insignias</flux:navlist.item>
