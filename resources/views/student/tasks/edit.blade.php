@@ -1,0 +1,167 @@
+<x-layouts.app :title="__('Editar Tarea - Estudiante')">
+    <div class="flex h-full w-full flex-1 flex-col gap-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Editar Tarea</h1>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Modifica la información de la tarea</p>
+            </div>
+            <a href="{{ route('student.tasks.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                <flux:icon.arrow-left class="size-4 mr-2" />
+                Volver
+            </a>
+        </div>
+
+        <!-- Form -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            <form action="{{ route('student.tasks.update', $task) }}" method="POST">
+                @csrf
+                @method('PUT')
+                
+                <div class="space-y-6">
+                    <div>
+                        <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Título de la Tarea <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" 
+                               id="title" 
+                               name="title" 
+                               value="{{ old('title', $task->title) }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" 
+                               required>
+                        @error('title')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Descripción <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="description" 
+                                  name="description" 
+                                  rows="4"
+                                  class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" 
+                                  required>{{ old('description', $task->description) }}</textarea>
+                        @error('description')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="priority" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Prioridad <span class="text-red-500">*</span>
+                            </label>
+                            <select id="priority" 
+                                    name="priority" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" 
+                                    required>
+                                <option value="">Seleccionar prioridad</option>
+                                <option value="baja" {{ old('priority', $task->priority) == 'baja' ? 'selected' : '' }}>Baja</option>
+                                <option value="media" {{ old('priority', $task->priority) == 'media' ? 'selected' : '' }}>Media</option>
+                                <option value="alta" {{ old('priority', $task->priority) == 'alta' ? 'selected' : '' }}>Alta</option>
+                                <option value="urgente" {{ old('priority', $task->priority) == 'urgente' ? 'selected' : '' }}>Urgente</option>
+                            </select>
+                            @error('priority')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Estado <span class="text-red-500">*</span>
+                            </label>
+                            <select id="status" 
+                                    name="status" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" 
+                                    required>
+                                <option value="">Seleccionar estado</option>
+                                <option value="pendiente" {{ old('status', $task->status) == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                                <option value="en_progreso" {{ old('status', $task->status) == 'en_progreso' ? 'selected' : '' }}>En Progreso</option>
+                                <option value="completada" {{ old('status', $task->status) == 'completada' ? 'selected' : '' }}>Completada</option>
+                                <option value="cancelada" {{ old('status', $task->status) == 'cancelada' ? 'selected' : '' }}>Cancelada</option>
+                            </select>
+                            @error('status')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="due_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Fecha de Vencimiento
+                            </label>
+                            <input type="datetime-local" 
+                                   id="due_date" 
+                                   name="due_date" 
+                                   value="{{ old('due_date', $task->due_date ? $task->due_date->format('Y-m-d\TH:i') : '') }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            @error('due_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="estimated_hours" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Horas Estimadas
+                            </label>
+                            <input type="number" 
+                                   id="estimated_hours" 
+                                   name="estimated_hours" 
+                                   value="{{ old('estimated_hours', $task->estimated_hours ?? 1) }}"
+                                   min="0.5" 
+                                   max="40"
+                                   step="0.5"
+                                   class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                            @error('estimated_hours')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Notas Adicionales
+                        </label>
+                        <textarea id="notes" 
+                                  name="notes" 
+                                  rows="3"
+                                  placeholder="Agrega notas adicionales sobre la tarea..."
+                                  class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{ old('notes', $task->notes) }}</textarea>
+                        @error('notes')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="flex items-center">
+                            <input type="checkbox" 
+                                   name="is_recurring" 
+                                   value="1"
+                                   {{ old('is_recurring', $task->is_recurring) ? 'checked' : '' }}
+                                   class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Tarea recurrente</span>
+                        </label>
+                        @error('is_recurring')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="flex justify-end space-x-3 mt-6">
+                    <a href="{{ route('student.tasks.index') }}" 
+                       class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancelar
+                    </a>
+                    <button type="submit" 
+                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Actualizar Tarea
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</x-layouts.app> 

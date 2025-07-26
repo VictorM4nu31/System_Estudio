@@ -44,6 +44,23 @@
             </flux:navlist>
             @endrole
 
+            @role('student')
+            <flux:navlist variant="outline" class="mt-4">
+                <flux:navlist.group :heading="__('Estudiante')" class="grid">
+                    <flux:navlist.item icon="user" :href="route('settings.student-profile')" :current="request()->routeIs('settings.student-profile')" wire:navigate>Perfil Académico</flux:navlist.item>
+                    <flux:navlist.item icon="users" :href="route('student.guilds.index')" :current="request()->routeIs('student.guilds.*')" wire:navigate>Mi Gremio</flux:navlist.item>
+                    <flux:navlist.item icon="flag" :href="route('student.missions.index')" :current="request()->routeIs('student.missions.*')" wire:navigate>Misiones</flux:navlist.item>
+                    <flux:navlist.item icon="clipboard-document-list" :href="route('student.tasks.index')" :current="request()->routeIs('student.tasks.*')" wire:navigate>Tareas</flux:navlist.item>
+                    <flux:navlist.item icon="gift" :href="route('student.rewards.index')" :current="request()->routeIs('student.rewards.*')" wire:navigate>Recompensas</flux:navlist.item>
+                    <flux:navlist.item icon="briefcase" :href="route('student.inventory.index')" :current="request()->routeIs('student.inventory.*')" wire:navigate>Inventario</flux:navlist.item>
+                    <flux:navlist.item icon="trophy" :href="route('student.badges.index')" :current="request()->routeIs('student.badges.*')" wire:navigate>Insignias</flux:navlist.item>
+                    <flux:navlist.item icon="chart-bar" :href="route('student.academic-data.index')" :current="request()->routeIs('student.academic-data.*')" wire:navigate>Datos Académicos</flux:navlist.item>
+                    <flux:navlist.item icon="bell" :href="route('student.notifications.index')" :current="request()->routeIs('student.notifications.*')" wire:navigate>Notificaciones</flux:navlist.item>
+                    <flux:navlist.item icon="fire" :href="route('student.activities.index')" :current="request()->routeIs('student.activities.*')" wire:navigate>Actividades</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+            @endrole
+
             <flux:spacer />
 
             <flux:navlist variant="outline">

@@ -36,6 +36,9 @@ class Register extends Component
 
         event(new Registered(($user = User::create($validated))));
 
+        // Asignar rol de estudiante por defecto
+        $user->assignRole('student');
+
         Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);

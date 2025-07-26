@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tutor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tutor\Invitation;
+use Illuminate\Support\Facades\Auth;
 
 class InvitationController extends Controller
 {
@@ -13,6 +14,33 @@ class InvitationController extends Controller
         // Vista: tutor/invitations/index (listado de invitaciones)
         return view('tutor.invitations.index', compact('invitations'));
     }
+
+    public function accept($token) {
+        $invitation = Invitation::where('token', $token)->first();
+        
+        if (!$invitation) {
+            return redirect()->route('home')->with('error', 'Invitación inválida o expirada.');
+        }
+
+        if ($invitation->status !== 'pendiente') {
+            return redirect()->route('home')->with('error', 'Esta invitación ya ha sido procesada.');
+        }
+
+        // Si el usuario está autenticado, actualizar la invitación
+        if (Auth::check()) {
+            $invitation->update([
+                'tutor_id' => Auth::id(),
+                'status' => 'aceptada',
+                'accepted_at' => now(),
+            ]);
+
+            return redirect()->route('dashboard')->with('success', 'Invitación aceptada correctamente.');
+        }
+
+        // Si no está autenticado, redirigir al registro con el token
+        return redirect()->route('register', ['invitation_token' => $token]);
+    }
+
     public function store(Request $request) {
         $validated = $request->validate([
             'tutor_id' => 'required|integer',

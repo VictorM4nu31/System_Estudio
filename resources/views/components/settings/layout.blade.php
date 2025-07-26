@@ -4,6 +4,9 @@
             <flux:navlist.item :href="route('settings.profile')" wire:navigate>{{ __('Profile') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.password')" wire:navigate>{{ __('Password') }}</flux:navlist.item>
             <flux:navlist.item :href="route('settings.appearance')" wire:navigate>{{ __('Appearance') }}</flux:navlist.item>
+            @role('student')
+            <flux:navlist.item :href="route('settings.student-profile')" wire:navigate>{{ __('Perfil Académico') }}</flux:navlist.item>
+            @endrole
         </flux:navlist>
     </div>
 
