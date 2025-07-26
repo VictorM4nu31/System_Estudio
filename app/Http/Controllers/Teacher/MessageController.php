@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher\Message;
 use App\Models\Teacher\Guild;
 
@@ -27,6 +28,15 @@ class MessageController extends Controller
             'recipient_id' => 'nullable|integer',
             'guild_id' => 'nullable|integer',
         ]);
+
+        // Agregar el teacher_id del usuario autenticado
+        $validated['teacher_id'] = Auth::user()->teacher->id ?? 1;
+
+        // Asegurar que al menos uno de los dos campos esté presente
+        if (empty($validated['recipient_id']) && empty($validated['guild_id'])) {
+            return back()->withErrors(['recipient_type' => 'Debes seleccionar un gremio o un estudiante específico.'])->withInput();
+        }
+
         $message = Message::create($validated);
         // Vista: teacher/messages/show (detalle de mensaje creado)
         return view('teacher.messages.show', compact('message'));

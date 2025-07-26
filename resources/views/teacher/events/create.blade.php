@@ -83,6 +83,35 @@
                         @error('capacity') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
                     </div>
 
+                    <!-- Tipo de Destinatario -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Destinatario <span class="text-red-500">*</span>
+                        </label>
+                        <select name="recipient_type" id="recipient_type" onchange="toggleRecipientFields()" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" required>
+                            <option value="">Selecciona el destinatario</option>
+                            <option value="all" {{ old('recipient_type') == 'all' ? 'selected' : '' }}>Todos los estudiantes</option>
+                            <option value="guild" {{ old('recipient_type') == 'guild' ? 'selected' : '' }}>Gremio específico</option>
+                        </select>
+                        @error('recipient_type') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+
+                    <!-- Gremio (se muestra si se selecciona gremio) -->
+                    <div id="guild_field" class="hidden">
+                        <label for="guild_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Gremio <span class="text-red-500">*</span>
+                        </label>
+                        <select name="guild_id" id="guild_id" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
+                            <option value="">Selecciona un gremio</option>
+                            @foreach($guilds ?? [] as $guild)
+                                <option value="{{ $guild->id }}" {{ old('guild_id') == $guild->id ? 'selected' : '' }}>
+                                    {{ $guild->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('guild_id') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
+                    </div>
+
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <a href="{{ route('teacher.events.index') }}" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Cancelar</a>
@@ -94,4 +123,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleRecipientFields() {
+            const recipientType = document.getElementById('recipient_type').value;
+            const guildField = document.getElementById('guild_field');
+
+            // Ocultar campo de gremio
+            guildField.classList.add('hidden');
+
+            // Mostrar el campo correspondiente
+            if (recipientType === 'guild') {
+                guildField.classList.remove('hidden');
+                document.getElementById('guild_id').required = true;
+            } else {
+                document.getElementById('guild_id').required = false;
+            }
+        }
+
+        // Ejecutar al cargar la página para mantener el estado si hay errores
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleRecipientFields();
+        });
+    </script>
 </x-layouts.app>

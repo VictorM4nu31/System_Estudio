@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher\Shop;
 use App\Models\Teacher\Guild;
 
@@ -27,6 +28,10 @@ class ShopController extends Controller
             'guild_id' => 'required|integer',
             'description' => 'nullable|string',
         ]);
+
+        // Agregar el teacher_id del usuario autenticado
+        $validated['teacher_id'] = Auth::user()->teacher->id ?? 1;
+
         $shop = Shop::create($validated);
         // Vista: teacher/shops/show (detalle de tienda creada)
         return view('teacher.shops.show', compact('shop'));

@@ -13,12 +13,18 @@ class Shop extends Model
     protected $fillable = [
         'name',
         'guild_id',
+        'teacher_id',
         'description',
     ];
 
     public function guild(): BelongsTo
     {
         return $this->belongsTo(Guild::class, 'guild_id');
+    }
+
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Teacher::class, 'teacher_id');
     }
 
     public function rewards(): HasMany

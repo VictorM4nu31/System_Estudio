@@ -13,6 +13,7 @@ class Message extends Model
         'content',
         'recipient_id',
         'guild_id',
+        'teacher_id',
     ];
 
     public function guild(): BelongsTo
@@ -23,5 +24,10 @@ class Message extends Model
     public function recipient(): BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'recipient_id');
+    }
+
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Teacher::class, 'teacher_id');
     }
 }

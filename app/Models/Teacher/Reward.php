@@ -13,6 +13,7 @@ class Reward extends Model
         'name',
         'shop_id',
         'guild_id',
+        'teacher_id',
         'description',
         'cost',
     ];
@@ -25,5 +26,10 @@ class Reward extends Model
     public function guild(): BelongsTo
     {
         return $this->belongsTo(Guild::class, 'guild_id');
+    }
+
+    public function teacher(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Teacher::class, 'teacher_id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher\Reward;
 use App\Models\Teacher\Guild;
 use App\Models\Teacher\Shop;
@@ -31,6 +32,10 @@ class RewardController extends Controller
             'description' => 'nullable|string',
             'cost' => 'required|integer',
         ]);
+
+        // Agregar el teacher_id del usuario autenticado
+        $validated['teacher_id'] = Auth::user()->teacher->id ?? 1;
+
         $reward = Reward::create($validated);
         // Vista: teacher/rewards/show (detalle de recompensa creada)
         return view('teacher.rewards.show', compact('reward'));

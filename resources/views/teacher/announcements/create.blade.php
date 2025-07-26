@@ -50,6 +50,27 @@
                         @enderror
                     </div>
 
+                    <!-- Gremio -->
+                    <div>
+                        <label for="guild_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Gremio <span class="text-red-500">*</span>
+                        </label>
+                        <select name="guild_id"
+                                id="guild_id"
+                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                                required>
+                            <option value="">Selecciona un gremio</option>
+                            @foreach($guilds ?? [] as $guild)
+                                <option value="{{ $guild->id }}" {{ old('guild_id') == $guild->id ? 'selected' : '' }}>
+                                    {{ $guild->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('guild_id')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                     <!-- Action Buttons -->
                     <div class="flex items-center justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <a href="{{ route('teacher.announcements.index') }}"

@@ -59,4 +59,12 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    /**
+     * Get the teacher profile associated with the user
+     */
+    public function teacher()
+    {
+        return $this->hasOne(Teacher::class);
+    }
 }
